@@ -3,10 +3,15 @@ IBROWSE_VSN = $(shell sed -n 's/.*{vsn,.*"\(.*\)"}.*/\1/p' src/ibrowse.app.src)
 DIALYZER_PLT=$(CURDIR)/.dialyzer_plt
 DIALYZER_APPS=erts kernel stdlib ssl crypto public_key
 
+.PHONY: deps
+
 all: compile
 
-compile:
+compile: deps
 	./rebar compile
+
+deps:
+	./rebar get-deps
 
 clean:
 	./rebar clean
